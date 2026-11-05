@@ -434,15 +434,15 @@ header {
     color: var(--text-main);
 }
 
-/* Configuração correta para a imagem original aparecer com margem branca */
+/* Imagem corrigida com o nome correto e com fundo/margem branca para leitura do Pix */
 .modal-content img {
     width: 200px;
     height: 200px;
     border-radius: 12px;
     border: 2px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 20px;
-    background: #ffffff; /* Fundo branco necessário */
-    padding: 16px;       /* Cria a margem de segurança (quiet zone) exigida pelos bancos */
+    background: #ffffff;
+    padding: 16px;
     box-sizing: border-box;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
@@ -852,8 +852,8 @@ header {
 <div class="modal-overlay" id="qr-modal">
     <div class="modal-content">
         <h3>Apoie este jogo</h3>
-        <!-- Exibição correta da sua imagem original com fundo branco e margem interna -->
-        <img id="modal-qr-img" src="image_2.png" alt="QR Code Pix" width="200" height="200">
+        <!-- Nome correto do arquivo integrado -->
+        <img id="modal-qr-img" src="qr-code-pix.png" alt="QR Code Pix" width="200" height="200">
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px;">Escaneie o QR Code com seu aplicativo de pagamento para contribuir.</p>
         <button class="close-modal-btn" id="close-modal">Fechar</button>
     </div>
