@@ -388,15 +388,15 @@ header {
     box-shadow: 0 6px 16px rgba(248, 113, 113, 0.5);
 }
 
-/* Modal do QR Code */
+/* Modal do QR Code Compacto e Centralizado */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(3, 7, 18, 0.85);
-    backdrop-filter: blur(8px);
+    background: rgba(3, 7, 18, 0.8);
+    backdrop-filter: blur(6px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -404,6 +404,7 @@ header {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
+    padding: 16px;
 }
 
 .modal-overlay.active {
@@ -412,14 +413,14 @@ header {
 }
 
 .modal-content {
-    background: rgba(15, 23, 42, 0.95);
+    background: rgba(15, 23, 42, 0.98);
     border: 1px solid rgba(56, 189, 248, 0.3);
-    padding: 30px;
-    border-radius: 20px;
+    padding: 22px 20px;
+    border-radius: 16px;
     text-align: center;
-    max-width: 340px;
-    width: 90%;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    max-width: 280px;
+    width: 100%;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8);
     transform: scale(0.95);
     transition: transform 0.3s ease;
 }
@@ -429,21 +430,22 @@ header {
 }
 
 .modal-content h3 {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
+    font-size: 1.05rem;
+    margin-bottom: 12px;
     color: var(--text-main);
 }
 
-/* Imagem corrigida com o nome correto e com fundo/margem branca para leitura do Pix */
+/* Imagem compacta e centralizada mantendo a margem de leitura do Pix */
 .modal-content img {
-    width: 200px;
-    height: 200px;
-    border-radius: 12px;
+    width: 140px;
+    height: 140px;
+    border-radius: 10px;
     border: 2px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 20px;
+    margin: 0 auto 12px auto;
     background: #ffffff;
-    padding: 16px;
+    padding: 10px;
     box-sizing: border-box;
+    display: block;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
     image-rendering: pixelated;
@@ -451,13 +453,13 @@ header {
 
 .close-modal-btn {
     display: inline-block;
-    padding: 10px 24px;
+    padding: 8px 20px;
     background: var(--primary-gradient);
     color: #030712;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -848,13 +850,12 @@ header {
 
 </div>
 
-<!-- Modal Global para Exibição do QR Code -->
+<!-- Modal Global Compacto e Centralizado -->
 <div class="modal-overlay" id="qr-modal">
     <div class="modal-content">
         <h3>Apoie este jogo</h3>
-        <!-- Nome correto do arquivo integrado -->
-        <img id="modal-qr-img" src="qr-code-pix.png" alt="QR Code Pix" width="200" height="200">
-        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px;">Escaneie o QR Code com seu aplicativo de pagamento para contribuir.</p>
+        <img id="modal-qr-img" src="qr-code-pix.png" alt="QR Code Pix" width="140" height="140">
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.4;">Escaneie o QR Code com seu app de pagamento.</p>
         <button class="close-modal-btn" id="close-modal">Fechar</button>
     </div>
 </div>
