@@ -392,14 +392,11 @@ header {
    ========================================== */
 .modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    inset: 0; /* CORRIGIDO: Substitui top/left/width/vw por inset 0 para estabilidade em mobile */
     background: rgba(3, 7, 18, 0.85);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    display: none; /* CORRIGIDO: Oculto por padrão para evitar piscar na abertura */
+    display: none; 
     align-items: center;
     justify-content: center;
     z-index: 9999;
@@ -411,7 +408,7 @@ header {
 }
 
 .modal-overlay.active {
-    display: flex; /* CORRIGIDO: Ativa o display flex apenas quando ativo */
+    display: flex; 
     opacity: 1;
     pointer-events: auto;
 }
