@@ -442,6 +442,10 @@ header {
     margin-bottom: 20px;
     background: #fff;
     padding: 8px;
+    /* Correção aplicada para evitar que o QR Code fique difuso */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
 }
 
 .close-modal-btn {
@@ -847,7 +851,7 @@ header {
 <div class="modal-overlay" id="qr-modal">
     <div class="modal-content">
         <h3>Apoie este jogo</h3>
-        <img id="modal-qr-img" src="qr-code-pix.png" alt="QR Code Pix">
+        <img id="modal-qr-img" src="qr-code-pix.png" alt="QR Code Pix" width="300" height="300">
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px;">Escaneie o QR Code com seu aplicativo de pagamento para contribuir.</p>
         <button class="close-modal-btn" id="close-modal">Fechar</button>
     </div>
