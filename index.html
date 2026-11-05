@@ -112,7 +112,6 @@ header {
     color: var(--primary);
 }
 
-/* Container Ampliado para ocupar mais espaço horizontal em desktops */
 .container {
     max-width: 1400px;
     margin: auto;
@@ -388,18 +387,22 @@ header {
     box-shadow: 0 6px 16px rgba(5, 72, 218, 0.5);
 }
 
-/* Modal do QR Code (Ajustado para caber perfeitamente e ter scroll se necessário) */
+/* ==========================================
+   MODAL DO QR CODE (Centralizado sem falhas)
+   ========================================== */
 .modal-overlay {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
     background: rgba(3, 7, 18, 0.85);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 2000;
+    z-index: 9999;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -415,14 +418,13 @@ header {
 .modal-content {
     background: rgba(15, 23, 42, 0.98);
     border: 1px solid rgba(56, 189, 248, 0.3);
-    padding: 20px 16px;
+    padding: 22px 18px;
     border-radius: 20px;
     text-align: center;
     width: 100%;
-    max-width: 280px;
-    max-height: 90vh; /* Garante que nunca seja maior que 90% da altura da tela */
-    overflow-y: auto;  /* Permite rolar internamente se a tela for muito baixa */
-    margin: auto;
+    max-width: 270px;
+    max-height: 85vh;
+    overflow-y: auto;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
     transform: scale(0.95);
     transition: transform 0.3s ease;
@@ -439,12 +441,12 @@ header {
 
 .modal-content h3 {
     font-size: 1.05rem;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     color: var(--text-main);
 }
 
 .modal-content img {
-    width: 120px; /* Reduzido levemente para otimizar espaço vertical em celulares */
+    width: 120px;
     height: 120px;
     border-radius: 10px;
     border: 2px solid rgba(255, 255, 255, 0.1);
@@ -469,7 +471,7 @@ header {
     font-size: 0.8rem;
     cursor: pointer;
     transition: all 0.2s ease;
-    margin-top: 4px;
+    margin-top: 6px;
 }
 
 .close-modal-btn:hover {
@@ -597,10 +599,8 @@ header {
 }
 
 /* ==========================================
-   RESPONSIVIDADE OTIMIZADA (Tablets & Phones)
+   RESPONSIVIDADE OTIMIZADA
    ========================================== */
-
-/* Tablets (Telas até 1024px) */
 @media (max-width: 1024px) {
     .container, .nav-container {
         padding-left: 20px;
@@ -612,7 +612,6 @@ header {
     }
 }
 
-/* Smartphones / Dispositivos Móveis (Telas até 768px) */
 @media (max-width: 768px) {
     .container {
         padding: 140px 16px 60px 16px;
@@ -940,9 +939,9 @@ header {
     <div class="modal-content">
         <h3>Apoie este jogo</h3>
         <img id="modal-qr-img" src="qr-code-pix.png" alt="QR Code Pix" width="120" height="120">
-        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px;">Escaneie o QR Code com seu aplicativo de pagamento para contribuir.</p>
-        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px;">Ou, se preferir, copie e cole a chave Pix:</p>
-        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px; font-weight: 600;">49999244765</p>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px;">Escaneie o QR Code com seu aplicativo de pagamento para contribuir.</p>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">Ou, se preferir, copie e cole a chave Pix:</p>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;">49999244765</p>
         <button class="close-modal-btn" id="close-modal">Fechar</button>
     </div>
 </div>
@@ -1014,7 +1013,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function addComment() {
-            const text = commentInput_inputEl = commentInputEl.value.trim();
+            const text = commentInputEl.value.trim();
             if (!text) return;
 
             const comments = JSON.parse(localStorage.getItem(commentsKey)) || [];
