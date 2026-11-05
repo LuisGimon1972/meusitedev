@@ -388,7 +388,7 @@ header {
     box-shadow: 0 6px 16px rgba(5, 72, 218, 0.5);
 }
 
-/* Modal do QR Code (Centralização Absoluta Corrigida) */
+/* Modal do QR Code (Ajustado para caber perfeitamente e ter scroll se necessário) */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -403,7 +403,7 @@ header {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
-    padding: 12px;
+    padding: 16px;
     box-sizing: border-box;
 }
 
@@ -415,11 +415,13 @@ header {
 .modal-content {
     background: rgba(15, 23, 42, 0.98);
     border: 1px solid rgba(56, 189, 248, 0.3);
-    padding: 24px 16px;
+    padding: 20px 16px;
     border-radius: 20px;
     text-align: center;
     width: 100%;
-    max-width: 270px;
+    max-width: 280px;
+    max-height: 90vh; /* Garante que nunca seja maior que 90% da altura da tela */
+    overflow-y: auto;  /* Permite rolar internamente se a tela for muito baixa */
     margin: auto;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
     transform: scale(0.95);
@@ -436,19 +438,19 @@ header {
 }
 
 .modal-content h3 {
-    font-size: 1.1rem;
-    margin-bottom: 12px;
+    font-size: 1.05rem;
+    margin-bottom: 8px;
     color: var(--text-main);
 }
 
 .modal-content img {
-    width: 140px;
-    height: 140px;
-    border-radius: 12px;
+    width: 120px; /* Reduzido levemente para otimizar espaço vertical em celulares */
+    height: 120px;
+    border-radius: 10px;
     border: 2px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     background: #ffffff;
-    padding: 10px;
+    padding: 8px;
     box-sizing: border-box;
     display: block;
     image-rendering: -webkit-optimize-contrast;
@@ -458,7 +460,7 @@ header {
 
 .close-modal-btn {
     display: inline-block;
-    padding: 8px 20px;
+    padding: 8px 18px;
     background: var(--primary-gradient);
     color: #030712;
     border: none;
@@ -467,6 +469,7 @@ header {
     font-size: 0.8rem;
     cursor: pointer;
     transition: all 0.2s ease;
+    margin-top: 4px;
 }
 
 .close-modal-btn:hover {
@@ -936,12 +939,11 @@ header {
 <div class="modal-overlay" id="qr-modal">
     <div class="modal-content">
         <h3>Apoie este jogo</h3>
-        <img id="modal-qr-img" src="qr-code-pix.png" alt="QR Code Pix" width="140" height="140">
-        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 15px;">Escaneie o QR Code com seu aplicativo de pagamento para contribuir.</p>
-        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px;">Ou, se preferir, copie e cole a chave Pix:</p>
-        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px;">49999244765</p>
+        <img id="modal-qr-img" src="qr-code-pix.png" alt="QR Code Pix" width="120" height="120">
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px;">Escaneie o QR Code com seu aplicativo de pagamento para contribuir.</p>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px;">Ou, se preferir, copie e cole a chave Pix:</p>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px; font-weight: 600;">49999244765</p>
         <button class="close-modal-btn" id="close-modal">Fechar</button>
-
     </div>
 </div>
 
@@ -1012,7 +1014,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function addComment() {
-            const text = commentInputEl.value.trim();
+            const text = commentInput_inputEl = commentInputEl.value.trim();
             if (!text) return;
 
             const comments = JSON.parse(localStorage.getItem(commentsKey)) || [];
