@@ -10,9 +10,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!-- Biblioteca QRCode.js para geração nítida -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
 <style>
 :root {
     --bg-color: #030712;
@@ -437,26 +434,19 @@ header {
     color: var(--text-main);
 }
 
-/* Container onde o QR Code em alta definição será gerado */
-#qrcode-container {
-    background: #ffffff;
-    padding: 12px;
+/* Estilização da imagem original com margem de segurança (respiro branco) */
+.modal-content img {
+    width: 200px;
+    height: 200px;
     border-radius: 12px;
     border: 2px solid rgba(255, 255, 255, 0.1);
-    margin: 0 auto 20px auto;
-    width: 210px;
-    height: 210px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#qrcode-container img {
-    display: block;
-    width: 180px;
-    height: 180px;
-    image-rendering: pixelated;
+    margin-bottom: 20px;
+    background: #ffffff; /* Fundo branco obrigatório */
+    padding: 16px;       /* Cria a margem de silêncio exigida pelo leitor do banco */
+    box-sizing: border-box;
+    image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
+    image-rendering: pixelated;
 }
 
 .close-modal-btn {
@@ -862,8 +852,8 @@ header {
 <div class="modal-overlay" id="qr-modal">
     <div class="modal-content">
         <h3>Apoie este jogo</h3>
-        <!-- Container gerado via JS em alta nitidez -->
-        <div id="qrcode-container"></div>
+        <!-- Usando a imagem original com tratamento de borda/margem via CSS -->
+        <img id="modal-qr-img" src="image_2.png" alt="QR Code Pix" width="200" height="200">
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px;">Escaneie o QR Code com seu aplicativo de pagamento para contribuir.</p>
         <button class="close-modal-btn" id="close-modal">Fechar</button>
     </div>
@@ -875,21 +865,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const gameCards = document.querySelectorAll('.game-card');
     const modal = document.getElementById('qr-modal');
     const closeModalBtn = document.getElementById('close-modal');
-
-    // Inicializa a geração automática do QR Code do Pix (Substitua a string abaixo pela chave Pix / copia e cola real)
-    const pixPayload = "00020126580014br.gov.bcb.pix..."; // <--- Insira seu código Pix Copia e Cola aqui
-    const qrContainer = document.getElementById('qrcode-container');
-    
-    if (qrContainer && typeof QRCode !== 'undefined') {
-        new QRCode(qrContainer, {
-            text: pixPayload,
-            width: 180,
-            height: 180,
-            colorDark: "#030712",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.H
-        });
-    }
 
     gameCards.forEach(card => {
         const gameId = card.getAttribute('data-game');
