@@ -112,6 +112,7 @@ header {
     color: var(--primary);
 }
 
+/* Container Ampliado para ocupar mais espaço horizontal em desktops */
 .container {
     max-width: 1400px;
     margin: auto;
@@ -387,28 +388,26 @@ header {
     box-shadow: 0 6px 16px rgba(5, 72, 218, 0.5);
 }
 
-/* ==========================================
-   MODAL DO QR CODE (Corrigido para mobile)
-   ========================================== */
+/* Modal do QR Code (Centralização Absoluta Corrigida) */
 .modal-overlay {
     position: fixed;
-    inset: 0; /* CORRIGIDO: Substitui top/left/width/vw por inset 0 para estabilidade em mobile */
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
     background: rgba(3, 7, 18, 0.85);
     backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    display: none; 
+    display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
+    z-index: 2000;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
-    padding: 16px;
+    padding: 12px;
     box-sizing: border-box;
 }
 
 .modal-overlay.active {
-    display: flex; 
     opacity: 1;
     pointer-events: auto;
 }
@@ -416,13 +415,12 @@ header {
 .modal-content {
     background: rgba(15, 23, 42, 0.98);
     border: 1px solid rgba(56, 189, 248, 0.3);
-    padding: 22px 18px;
+    padding: 24px 16px;
     border-radius: 20px;
     text-align: center;
     width: 100%;
     max-width: 270px;
-    max-height: 85vh;
-    overflow-y: auto;
+    margin: auto;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
     transform: scale(0.95);
     transition: transform 0.3s ease;
@@ -438,19 +436,19 @@ header {
 }
 
 .modal-content h3 {
-    font-size: 1.05rem;
-    margin-bottom: 10px;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
     color: var(--text-main);
 }
 
 .modal-content img {
-    width: 120px;
-    height: 120px;
-    border-radius: 10px;
+    width: 140px;
+    height: 140px;
+    border-radius: 12px;
     border: 2px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     background: #ffffff;
-    padding: 8px;
+    padding: 10px;
     box-sizing: border-box;
     display: block;
     image-rendering: -webkit-optimize-contrast;
@@ -460,7 +458,7 @@ header {
 
 .close-modal-btn {
     display: inline-block;
-    padding: 8px 18px;
+    padding: 8px 20px;
     background: var(--primary-gradient);
     color: #030712;
     border: none;
@@ -469,7 +467,6 @@ header {
     font-size: 0.8rem;
     cursor: pointer;
     transition: all 0.2s ease;
-    margin-top: 6px;
 }
 
 .close-modal-btn:hover {
@@ -597,8 +594,10 @@ header {
 }
 
 /* ==========================================
-   RESPONSIVIDADE OTIMIZADA
+   RESPONSIVIDADE OTIMIZADA (Tablets & Phones)
    ========================================== */
+
+/* Tablets (Telas até 1024px) */
 @media (max-width: 1024px) {
     .container, .nav-container {
         padding-left: 20px;
@@ -610,6 +609,7 @@ header {
     }
 }
 
+/* Smartphones / Dispositivos Móveis (Telas até 768px) */
 @media (max-width: 768px) {
     .container {
         padding: 140px 16px 60px 16px;
@@ -936,11 +936,12 @@ header {
 <div class="modal-overlay" id="qr-modal">
     <div class="modal-content">
         <h3>Apoie este jogo</h3>
-        <img id="modal-qr-img" src="qr-code-pix.png" alt="QR Code Pix" width="120" height="120">
-        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px;">Escaneie o QR Code com seu aplicativo de pagamento para contribuir.</p>
-        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">Ou, se preferir, copie e cole a chave Pix:</p>
-        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;">49999244765</p>
+        <img id="modal-qr-img" src="qr-code-pix.png" alt="QR Code Pix" width="140" height="140">
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 15px;">Escaneie o QR Code com seu aplicativo de pagamento para contribuir.</p>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px;">Ou, se preferir, copie e cole a chave Pix:</p>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px;">49999244765</p>
         <button class="close-modal-btn" id="close-modal">Fechar</button>
+
     </div>
 </div>
 
