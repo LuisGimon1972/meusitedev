@@ -46,7 +46,7 @@ body::before {
     top: -120px;
     left: 50%;
     transform: translateX(-50%);
-    width: 700px;
+    width: 900px;
     height: 400px;
     background: radial-gradient(circle, var(--glow-color) 0%, rgba(99, 102, 241, 0.05) 50%, transparent 80%);
     z-index: -1;
@@ -61,16 +61,16 @@ header {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(3, 7, 18, 0.8);
+    background: rgba(3, 7, 18, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .nav-container {
-    max-width: 1100px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 16px 24px;
+    padding: 16px 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -111,10 +111,11 @@ header {
     color: var(--primary);
 }
 
+/* Container Ampliado para ocupar mais espaço horizontal em desktops */
 .container {
-    max-width: 1100px;
+    max-width: 1400px;
     margin: auto;
-    padding: 150px 24px 80px 24px;
+    padding: 150px 32px 80px 32px;
 }
 
 /* Hero Section */
@@ -124,20 +125,20 @@ header {
 }
 
 .hero h1 {
-    font-size: 3.2rem;
+    font-size: 3.5rem;
     font-weight: 800;
     letter-spacing: -0.03em;
     background: var(--primary-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     line-height: 1.1;
 }
 
 .hero p {
     font-size: 1.15rem;
     color: var(--text-muted);
-    max-width: 750px;
+    max-width: 1100px;
     margin: 0 auto;
     line-height: 1.8;
     font-weight: 300;
@@ -161,7 +162,7 @@ header {
 
 .games-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 24px;
 }
 
@@ -221,7 +222,7 @@ header {
     font-weight: 300;
 }
 
-/* Elementos de Estatísticas e Comentários Locais */
+/* Estatísticas e Comentários */
 .game-stats {
     font-size: 0.85rem;
     color: var(--text-muted);
@@ -267,7 +268,6 @@ header {
     border: 1px solid rgba(255, 255, 255, 0.02);
 }
 
-/* Botão minimalista + / - */
 .toggle-comments-btn {
     background: rgba(56, 189, 248, 0.1);
     border: 1px solid rgba(56, 189, 248, 0.2);
@@ -329,7 +329,7 @@ header {
     border-color: transparent;
 }
 
-/* Container de Botões do Card */
+/* Ações do Card */
 .card-actions {
     display: flex;
     flex-direction: column;
@@ -361,7 +361,6 @@ header {
     box-shadow: 0 8px 20px -5px rgba(56, 189, 248, 0.4);
 }
 
-/* Botão Support This Game */
 .support-btn {
     display: inline-flex;
     align-items: center;
@@ -434,7 +433,6 @@ header {
     color: var(--text-main);
 }
 
-/* Imagem corrigida com o nome correto e com fundo/margem branca para leitura do Pix */
 .modal-content img {
     width: 200px;
     height: 200px;
@@ -444,9 +442,6 @@ header {
     background: #ffffff;
     padding: 16px;
     box-sizing: border-box;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-    image-rendering: pixelated;
 }
 
 .close-modal-btn {
@@ -526,7 +521,7 @@ header {
     box-shadow: 0 15px 30px -5px rgba(56, 189, 248, 0.5);
 }
 
-/* Contact Section / Rodapé Moderno */
+/* Contact Section / Rodapé */
 .contact-section {
     margin-top: 100px;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -535,7 +530,7 @@ header {
 
 .contact-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
     margin-bottom: 40px;
 }
@@ -586,22 +581,79 @@ header {
     border-top: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.3rem;
+/* ==========================================
+   RESPONSIVIDADE OTIMIZADA (Tablets & Phones)
+   ========================================== */
+
+/* Tablets (Telas até 1024px) */
+@media (max-width: 1024px) {
+    .container, .nav-container {
+        padding-left: 24px;
+        padding-right: 24px;
     }
+    
+    .hero h1 {
+        font-size: 3rem;
+    }
+}
+
+/* Smartphones / Dispositivos Móveis (Telas até 768px) */
+@media (max-width: 768px) {
+    .container {
+        padding: 120px 16px 60px 16px;
+    }
+
+    .nav-container {
+        padding: 14px 16px;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .nav-links {
+        gap: 16px;
+        width: 100%;
+        justify-content: center;
+        overflow-x: auto;
+        padding-bottom: 4px;
+    }
+
+    .hero {
+        margin-bottom: 50px;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+        margin-bottom: 16px;
+    }
+
+    .hero p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .games-grid {
+        grid-template-columns: 1fr; /* Um card por linha em telas pequenas para legibilidade perfeita */
+    }
+
     .store-card {
         flex-direction: column;
         align-items: stretch;
         gap: 20px;
+        padding: 24px 20px;
     }
+
     .store-btn {
         width: 100%;
         text-align: center;
     }
-    .nav-links {
-        gap: 16px;
+
+    .contact-grid {
+        grid-template-columns: 1fr;
     }
 }
 </style>
@@ -664,7 +716,6 @@ header {
                     </div>
                 </div>
                 <div class="card-actions">
-                    
                     <a class="play-btn" href="https://luisgimon1972.github.io/truco-game-web/#/" target="_blank">
                        Jogar Agora ➔
                     </a>
@@ -855,14 +906,13 @@ header {
 <div class="modal-overlay" id="qr-modal">
     <div class="modal-content">
         <h3>Apoie este jogo</h3>
-        <!-- Nome correto do arquivo integrado -->
         <img id="modal-qr-img" src="qr-code-pix.png" alt="QR Code Pix" width="200" height="200">
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px;">Escaneie o QR Code com seu aplicativo de pagamento para contribuir.</p>
         <button class="close-modal-btn" id="close-modal">Fechar</button>
     </div>
 </div>
 
-<!-- Script Automatizado: Modal QR Code, Visualizações e Comentários -->
+<!-- Script Automatizado -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const gameCards = document.querySelectorAll('.game-card');
@@ -884,24 +934,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let isExpanded = false;
 
-        // Abrir modal ao clicar em Support This Game
         supportBtnEl.addEventListener('click', () => {
+            modal.classList.0 = ''; // limpa se necessário
             modal.classList.add('active');
         });
 
-        // 1. Carrega as visualizações salvas
         const viewsKey = `visitas_${gameId}`;
         let views = parseInt(localStorage.getItem(viewsKey)) || 0;
         viewCountEl.textContent = views;
 
-        // Incrementa a visualização SOMENTE ao clicar em "Jogar Agora"
         playBtnEl.addEventListener('click', () => {
             views++;
             localStorage.setItem(viewsKey, views);
             viewCountEl.textContent = views;
         });
 
-        // 2. Controle de Comentários
         const commentsKey = `comentarios_${gameId}`;
 
         function renderComments() {
@@ -958,7 +1005,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderComments();
     });
 
-    // Fechar Modal
     closeModalBtn.addEventListener('click', () => {
         modal.classList.remove('active');
     });
