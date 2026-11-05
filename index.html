@@ -74,6 +74,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .logo {
@@ -588,8 +589,8 @@ header {
 /* Tablets (Telas até 1024px) */
 @media (max-width: 1024px) {
     .container, .nav-container {
-        padding-left: 24px;
-        padding-right: 24px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
     
     .hero h1 {
@@ -600,21 +601,31 @@ header {
 /* Smartphones / Dispositivos Móveis (Telas até 768px) */
 @media (max-width: 768px) {
     .container {
-        padding: 120px 16px 60px 16px;
+        padding: 130px 16px 60px 16px;
     }
 
     .nav-container {
-        padding: 14px 16px;
+        padding: 12px 16px;
         flex-direction: column;
-        gap: 12px;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo {
+        font-size: 0.95rem;
+        text-align: center;
     }
 
     .nav-links {
-        gap: 16px;
+        gap: 14px;
         width: 100%;
         justify-content: center;
-        overflow-x: auto;
+        flex-wrap: wrap; /* Permite que os links fiquem ajustados sem estourar para a direita */
         padding-bottom: 4px;
+    }
+
+    .nav-links a {
+        font-size: 0.82rem;
     }
 
     .hero {
@@ -622,12 +633,12 @@ header {
     }
 
     .hero h1 {
-        font-size: 2.2rem;
+        font-size: 2.1rem;
         margin-bottom: 16px;
     }
 
     .hero p {
-        font-size: 1rem;
+        font-size: 0.95rem;
         line-height: 1.6;
     }
 
@@ -637,7 +648,7 @@ header {
     }
 
     .games-grid {
-        grid-template-columns: 1fr; /* Um card por linha em telas pequenas para legibilidade perfeita */
+        grid-template-columns: 1fr;
     }
 
     .store-card {
@@ -935,7 +946,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let isExpanded = false;
 
         supportBtnEl.addEventListener('click', () => {
-            modal.classList.0 = ''; // limpa se necessário
             modal.classList.add('active');
         });
 
