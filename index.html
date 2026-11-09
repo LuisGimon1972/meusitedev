@@ -68,7 +68,7 @@ header {
 }
 
 .nav-container {
-    max-width: 1400px;
+    max-width: 1560px;
     margin: 0 auto;
     padding: 16px 32px;
     display: flex;
@@ -112,9 +112,9 @@ header {
     color: var(--primary);
 }
 
-/* Container Ampliado para ocupar mais espaço horizontal em desktops */
+/* Container Ampliado para suportar 5 cards por linha em telas grandes */
 .container {
-    max-width: 1400px;
+    max-width: 1560px;
     margin: auto;
     padding: 150px 32px 80px 32px;
 }
@@ -161,9 +161,10 @@ header {
     gap: 12px;
 }
 
+/* Ajustado para 5 colunas em computadores (mínimo de 210px por card) */
 .games-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 20px;
 }
 
@@ -173,7 +174,7 @@ header {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 16px;
-    padding: 20px 18px;
+    padding: 18px 16px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -205,29 +206,29 @@ header {
     opacity: 1;
 }
 
-/* Estilo para imagem do card (Ex: Ajiley) */
+/* Estilo para imagem do card */
 .game-card-img {
     width: 100%;
-    height: 150px;
+    height: 130px;
     object-fit: cover;
     border-radius: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .game-card h3 {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 600;
     margin-bottom: 8px;
     color: var(--text-main);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
 .game-card p {
     color: var(--text-muted);
-    font-size: 0.88rem;
+    font-size: 0.84rem;
     margin-bottom: 12px;
     line-height: 1.5;
     font-weight: 300;
@@ -235,12 +236,12 @@ header {
 
 /* Estatísticas e Comentários */
 .game-stats {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     background: rgba(3, 7, 18, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.04);
-    padding: 10px;
+    padding: 8px;
     border-radius: 10px;
 }
 
@@ -263,10 +264,10 @@ header {
 .comments-list {
     list-style: none;
     padding-left: 0;
-    max-height: 120px;
+    max-height: 100px;
     overflow-y: auto;
     margin-bottom: 6px;
-    font-size: 0.76rem;
+    font-size: 0.74rem;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -283,9 +284,9 @@ header {
     background: rgba(56, 189, 248, 0.1);
     border: 1px solid rgba(56, 189, 248, 0.2);
     color: var(--primary);
-    width: 20px;
-    height: 20px;
-    font-size: 0.85rem;
+    width: 18px;
+    height: 18px;
+    font-size: 0.8rem;
     font-weight: bold;
     border-radius: 4px;
     cursor: pointer;
@@ -304,13 +305,13 @@ header {
 
 .comment-form {
     display: flex;
-    gap: 6px;
+    gap: 4px;
 }
 
 .comment-input {
     flex: 1;
-    padding: 5px 8px;
-    font-size: 0.76rem;
+    padding: 5px 6px;
+    font-size: 0.74rem;
     background: rgba(3, 7, 18, 0.8);
     border: 1px solid var(--card-border);
     color: var(--text-main);
@@ -323,8 +324,8 @@ header {
 }
 
 .comment-btn {
-    padding: 5px 10px;
-    font-size: 0.76rem;
+    padding: 5px 8px;
+    font-size: 0.74rem;
     background: rgba(56, 189, 248, 0.15);
     color: var(--primary);
     border: 1px solid rgba(56, 189, 248, 0.3);
@@ -354,13 +355,13 @@ header {
     gap: 6px;
     width: 100%;
     text-align: center;
-    padding: 8px 16px;
+    padding: 8px 12px;
     background: rgba(56, 189, 248, 0.08);
     color: var(--primary);
     text-decoration: none;
     border-radius: 10px;
     font-weight: 600;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     border: 1px solid rgba(56, 189, 248, 0.2);
     transition: all 0.3s ease;
 }
@@ -379,13 +380,13 @@ header {
     gap: 6px;
     width: 100%;
     text-align: center;
-    padding: 8px 16px;
+    padding: 8px 12px;
     background: #419bf0;
     color: black;
     text-decoration: none;
     border-radius: 10px;
     font-weight: 700;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -398,7 +399,7 @@ header {
     box-shadow: 0 6px 16px rgba(5, 72, 218, 0.5);
 }
 
-/* Modal do QR Code (Amplo e Responsivo) */
+/* Modal do QR Code */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -406,6 +407,7 @@ header {
     height: 100vh;
     background: rgba(3, 7, 18, 0.85);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -604,7 +606,7 @@ header {
     border-top: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1400px) {
     .container, .nav-container {
         padding-left: 20px;
         padding-right: 20px;
@@ -795,7 +797,7 @@ header {
             <div class="game-card" data-game="solitaire">
                 <div>
                     <h3>♠️ Solitaire Game Web</h3>
-                    <img src="solitarielogo.jpg" alt="Truco Game Venezuelan" class="game-card-img">
+                    <img src="solitarielogo.jpg" alt="Solitaire Game Web" class="game-card-img">
                     <p>Versão moderna do tradicional jogo de Paciência, otimizada para desktop e dispositivos móveis.</p>
                     
                     <div class="game-stats">
@@ -827,7 +829,7 @@ header {
             <div class="game-card" data-game="raid">
                 <div>
                     <h3>🚀 River Raid Game</h3>
-                    <img src="riverlogo.jpg" alt="Truco Game Venezuelan" class="game-card-img">
+                    <img src="riverlogo.jpg" alt="River Raid Game" class="game-card-img">
                     <p>Aventura arcade com ação rápida, desafios e muita diversão diretamente no navegador.</p>
                     
                     <div class="game-stats">
@@ -859,7 +861,7 @@ header {
             <div class="game-card" data-game="memory">
                 <div>
                     <h3>🧠 Memory Master Pro</h3>
-                    <img src="memorylogo.jpg" alt="Ajiley Game Master" class="game-card-img">
+                    <img src="memorylogo.jpg" alt="Memory Master Pro" class="game-card-img">
                     <p>Jogo de memória com desafios progressivos para estimular concentração e raciocínio.</p>
                     
                     <div class="game-stats">
