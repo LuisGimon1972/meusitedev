@@ -341,6 +341,11 @@ header {
     border-color: transparent;
 }
 
+.comment-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 /* Ações do Card */
 .card-actions {
     display: flex;
@@ -1344,135 +1349,179 @@ header {
     </div>
 </div>
 
-<!-- Script Automatizado -->
+<!-- Script Integrado com Cloudflare Workers -->
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const gameCards = document.querySelectorAll('.game-card');
-    const modal = document.getElementById('qr-modal');
-    const closeModalBtn = document.getElementById('close-modal');
+const API_BASE_URL = "https://stats-api.webgratis.workers.dev";
 
-    const openBioBtn = document.getElementById('open-bio-btn');
-    const bioModal = document.getElementById('bio-modal');
-    const closeBioModalBtn = document.getElementById('close-bio-modal');
+document.addEventListener("DOMContentLoaded", async () => {
+    const gameCards = document.querySelectorAll(".game-card");
+    const modal = document.getElementById("qr-modal");
+    const closeModalBtn = document.getElementById("close-modal");
+
+    const openBioBtn = document.getElementById("open-bio-btn");
+    const bioModal = document.getElementById("bio-modal");
+    const closeBioModalBtn = document.getElementById("close-bio-modal");
 
     if (openBioBtn && bioModal && closeBioModalBtn) {
-        openBioBtn.addEventListener('click', (e) => {
+        openBioBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            bioModal.classList.add('active');
+            bioModal.classList.add("active");
         });
 
-        closeBioModalBtn.addEventListener('click', () => {
-            bioModal.classList.remove('active');
+        closeBioModalBtn.addEventListener("click", () => {
+            bioModal.classList.remove("active");
         });
 
-        bioModal.addEventListener('click', (e) => {
+        bioModal.addEventListener("click", (e) => {
             if (e.target === bioModal) {
-                bioModal.classList.remove('active');
+                bioModal.classList.remove("active");
             }
         });
     }
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            if (bioModal) bioModal.classList.remove('active');
-            if (modal) modal.classList.remove('active');
+    if (closeModalBtn && modal) {
+        closeModalBtn.addEventListener("click", () => {
+            modal.classList.remove("active");
+        });
+
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.classList.remove("active");
+            }
+        });
+    }
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            if (bioModal) bioModal.classList.remove("active");
+            if (modal) modal.classList.remove("active");
         }
     });
 
-    gameCards.forEach(card => {
-        const gameId = card.getAttribute('data-game');
+    const cardControllers = new Map();
+
+    function renderCardComments(commentsListEl, commentCountBadgeEl, toggleBtnEl, comments, isExpanded) {
+        commentsListEl.innerHTML = "";
+        commentCountBadgeEl.textContent = `Comentários: ${comments.length}`;
+
+        if (comments.length === 0) {
+            commentsListEl.innerHTML =
+                '<li style="color: var(--text-muted); font-style: italic; background: transparent; border: none;">Nenhum comentário ainda.</li>';
+            toggleBtnEl.style.display = "none";
+            return;
+        }
+
+        toggleBtnEl.style.display = "inline-flex";
+        toggleBtnEl.textContent = isExpanded ? "-" : "+";
+
+        const itemsToDisplay = isExpanded ? comments : [comments[comments.length - 1]];
+        itemsToDisplay.forEach((item) => {
+            const li = document.createElement("li");
+            li.textContent = typeof item === "string" ? item : item.text;
+            commentsListEl.appendChild(li);
+        });
+    }
+
+    gameCards.forEach((card) => {
+        const gameId = card.getAttribute("data-game");
         if (!gameId) return;
 
-        const viewCountEl = card.querySelector('.view-count');
-        const commentsListEl = card.querySelector('.comments-list');
-        const commentCountBadgeEl = card.querySelector('.comment-count-badge');
-        const toggleBtnEl = card.querySelector('.toggle-comments-btn');
-        const commentInputEl = card.querySelector('.comment-input');
-        const commentBtnEl = card.querySelector('.comment-btn');
-        const playBtnEl = card.querySelector('.play-btn');
-        const supportBtnEl = card.querySelector('.support-btn');
+        const viewCountEl = card.querySelector(".view-count");
+        const commentsListEl = card.querySelector(".comments-list");
+        const commentCountBadgeEl = card.querySelector(".comment-count-badge");
+        const toggleBtnEl = card.querySelector(".toggle-comments-btn");
+        const commentInputEl = card.querySelector(".comment-input");
+        const commentBtnEl = card.querySelector(".comment-btn");
+        const playBtnEl = card.querySelector(".play-btn");
+        const supportBtnEl = card.querySelector(".support-btn");
 
         let isExpanded = false;
+        let currentComments = [];
 
-        supportBtnEl.addEventListener('click', () => {
-            modal.classList.add('active');
-        });
-
-        const viewsKey = `visitas_${gameId}`;
-        let views = parseInt(localStorage.getItem(viewsKey)) || 0;
-        viewCountEl.textContent = views;
-
-        playBtnEl.addEventListener('click', () => {
-            views++;
-            localStorage.setItem(viewsKey, views);
-            viewCountEl.textContent = views;
-        });
-
-        const commentsKey = `comentarios_${gameId}`;
-
-        function renderComments() {
-            const comments = JSON.parse(localStorage.getItem(commentsKey)) || [];
-            commentsListEl.innerHTML = '';
-            
-            commentCountBadgeEl.textContent = `Comentários: ${comments.length}`;
-
-            if (comments.length === 0) {
-                commentsListEl.innerHTML = '<li style="color: var(--text-muted); font-style: italic; background: transparent; border: none;">Nenhum comentário ainda.</li>';
-                toggleBtnEl.style.display = 'none';
-                return;
-            }
-
-            if (comments.length > 0) {
-                toggleBtnEl.style.display = 'inline-flex';
-                toggleBtnEl.textContent = isExpanded ? '-' : '+';
-            } else {
-                toggleBtnEl.style.display = 'none';
-            }
-
-            const itemsToDisplay = isExpanded ? comments : [comments[comments.length - 1]];
-
-            itemsToDisplay.forEach(text => {
-                const li = document.createElement('li');
-                li.textContent = text;
-                commentsListEl.appendChild(li);
+        if (supportBtnEl && modal) {
+            supportBtnEl.addEventListener("click", () => {
+                modal.classList.add("active");
             });
         }
 
-        function addComment() {
+        const updateUI = (views, comments) => {
+            viewCountEl.textContent = views ?? 0;
+            currentComments = Array.isArray(comments) ? comments : [];
+            renderCardComments(commentsListEl, commentCountBadgeEl, toggleBtnEl, currentComments, isExpanded);
+        };
+
+        cardControllers.set(gameId, { updateUI });
+
+        if (playBtnEl) {
+            playBtnEl.addEventListener("click", async () => {
+                const atual = parseInt(viewCountEl.textContent, 10) || 0;
+                viewCountEl.textContent = atual + 1;
+
+                try {
+                    const res = await fetch(`${API_BASE_URL}/api/view/${encodeURIComponent(gameId)}`, {
+                        method: "POST",
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        viewCountEl.textContent = data.views;
+                    }
+                } catch (e) {
+                    console.error("Erro ao registrar visualização:", e);
+                }
+            });
+        }
+
+        async function sendComment() {
             const text = commentInputEl.value.trim();
             if (!text) return;
 
-            const comments = JSON.parse(localStorage.getItem(commentsKey)) || [];
-            comments.push(text);
-            localStorage.setItem(commentsKey, JSON.stringify(comments));
-
-            commentInputEl.value = '';
-            isExpanded = true; 
-            renderComments();
+            commentBtnEl.disabled = true;
+            try {
+                const res = await fetch(`${API_BASE_URL}/api/comment/${encodeURIComponent(gameId)}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ comment: text }),
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    commentInputEl.value = "";
+                    isExpanded = true;
+                    currentComments = Array.isArray(data.comments) ? data.comments : [];
+                    renderCardComments(commentsListEl, commentCountBadgeEl, toggleBtnEl, currentComments, isExpanded);
+                }
+            } catch (e) {
+                console.error("Erro ao enviar comentário:", e);
+            } finally {
+                commentBtnEl.disabled = false;
+            }
         }
 
-        toggleBtnEl.addEventListener('click', () => {
+        toggleBtnEl.addEventListener("click", () => {
             isExpanded = !isExpanded;
-            renderComments();
+            renderCardComments(commentsListEl, commentCountBadgeEl, toggleBtnEl, currentComments, isExpanded);
         });
 
-        commentBtnEl.addEventListener('click', addComment);
-        commentInputEl.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') addComment();
+        commentBtnEl.addEventListener("click", sendComment);
+        commentInputEl.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") sendComment();
         });
 
-        renderComments();
+        updateUI(0, []);
     });
 
-    closeModalBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
-    });
-
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
+    try {
+        const res = await fetch(`${API_BASE_URL}/api/stats`);
+        if (res.ok) {
+            const data = await res.json();
+            const allStats = data.stats || {};
+            cardControllers.forEach((ctrl, gameId) => {
+                const gameData = allStats[gameId] || { views: 0, comments: [] };
+                ctrl.updateUI(gameData.views, gameData.comments);
+            });
         }
-    });
+    } catch (e) {
+        console.error("Erro ao carregar estatísticas:", e);
+    }
 });
 </script>
 
