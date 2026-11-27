@@ -11,16 +11,84 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+/* MODO DARK (PADRÃO) */
 :root {
     --bg-color: #030712;
+    --bg-pattern: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(99, 102, 241, 0.05) 50%, transparent 80%);
+    --header-bg: rgba(3, 7, 18, 0.85);
+    --header-border: rgba(255, 255, 255, 0.06);
     --card-bg: rgba(15, 23, 42, 0.6);
     --card-border: rgba(56, 189, 248, 0.12);
     --card-hover-bg: rgba(30, 41, 59, 0.8);
+    --card-hover-border: rgba(56, 189, 248, 0.3);
+    --card-shadow: 0 20px 40px -15px rgba(56, 189, 248, 0.15);
+    --img-border: rgba(255, 255, 255, 0.08);
+    --stats-bg: rgba(3, 7, 18, 0.3);
+    --stats-border: rgba(255, 255, 255, 0.04);
+    --comment-item-bg: rgba(15, 23, 42, 0.8);
+    --comment-item-border: rgba(255, 255, 255, 0.02);
+    --input-bg: rgba(3, 7, 18, 0.8);
     --primary: #38bdf8;
     --primary-gradient: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+    --accent-btn-text: #030712;
+    --play-btn-bg: rgba(56, 189, 248, 0.08);
+    --play-btn-border: rgba(56, 189, 248, 0.2);
+    --play-btn-shadow: 0 8px 20px -5px rgba(56, 189, 248, 0.4);
+    --support-btn-bg: #419bf0;
+    --support-btn-hover: #087cbe;
+    --support-btn-text: #000000;
+    --support-btn-shadow: 0 4px 12px rgba(248, 113, 113, 0.3);
+    --support-btn-hover-shadow: 0 6px 16px rgba(5, 72, 218, 0.5);
+    --modal-overlay-bg: rgba(3, 7, 18, 0.85);
+    --modal-bg: rgba(15, 23, 42, 0.98);
+    --modal-border: rgba(56, 189, 248, 0.3);
+    --modal-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    --badge-bg: rgba(56, 189, 248, 0.1);
+    --badge-border: rgba(56, 189, 248, 0.25);
+    --footer-border: rgba(255, 255, 255, 0.06);
+    --footer-sub-border: rgba(255, 255, 255, 0.03);
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
-    --glow-color: rgba(56, 189, 248, 0.15);
+}
+
+/* MODO CLARO COLORIDO (VIBRANTE) */
+[data-theme="light"] {
+    --bg-color: #f4f7fe;
+    --bg-pattern: radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.22) 0%, rgba(139, 92, 246, 0.18) 45%, rgba(236, 72, 153, 0.12) 75%, transparent 90%);
+    --header-bg: rgba(255, 255, 255, 0.85);
+    --header-border: rgba(99, 102, 241, 0.14);
+    --card-bg: rgba(255, 255, 255, 0.88);
+    --card-border: rgba(99, 102, 241, 0.18);
+    --card-hover-bg: #ffffff;
+    --card-hover-border: rgba(139, 92, 246, 0.45);
+    --card-shadow: 0 18px 36px -12px rgba(79, 70, 229, 0.18);
+    --img-border: rgba(99, 102, 241, 0.15);
+    --stats-bg: #eef2ff;
+    --stats-border: rgba(99, 102, 241, 0.14);
+    --comment-item-bg: #ffffff;
+    --comment-item-border: rgba(99, 102, 241, 0.12);
+    --input-bg: #ffffff;
+    --primary: #4f46e5;
+    --primary-gradient: linear-gradient(135deg, #0284c7 0%, #6366f1 50%, #ec4899 100%);
+    --accent-btn-text: #ffffff;
+    --play-btn-bg: rgba(79, 70, 229, 0.09);
+    --play-btn-border: rgba(79, 70, 229, 0.28);
+    --play-btn-shadow: 0 10px 22px -5px rgba(99, 102, 241, 0.35);
+    --support-btn-bg: linear-gradient(135deg, #f97316 0%, #ec4899 100%);
+    --support-btn-hover: linear-gradient(135deg, #ea580c 0%, #db2777 100%);
+    --support-btn-text: #ffffff;
+    --support-btn-shadow: 0 4px 12px rgba(236, 72, 153, 0.28);
+    --support-btn-hover-shadow: 0 8px 18px rgba(236, 72, 153, 0.42);
+    --modal-overlay-bg: rgba(15, 23, 42, 0.55);
+    --modal-bg: #ffffff;
+    --modal-border: rgba(99, 102, 241, 0.25);
+    --modal-shadow: 0 25px 50px -12px rgba(30, 41, 59, 0.25);
+    --badge-bg: rgba(79, 70, 229, 0.1);
+    --badge-border: rgba(79, 70, 229, 0.25);
+    --footer-border: rgba(99, 102, 241, 0.15);
+    --footer-sub-border: rgba(99, 102, 241, 0.08);
+    --text-main: #0f172a;
+    --text-muted: #475569;
 }
 
 * {
@@ -37,6 +105,7 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Efeito de luz de fundo atmosférico */
@@ -48,7 +117,7 @@ body::before {
     transform: translateX(-50%);
     width: 900px;
     height: 400px;
-    background: radial-gradient(circle, var(--glow-color) 0%, rgba(99, 102, 241, 0.05) 50%, transparent 80%);
+    background: var(--bg-pattern);
     z-index: -1;
     filter: blur(90px);
     pointer-events: none;
@@ -61,10 +130,11 @@ header {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(3, 7, 18, 0.85);
+    background: var(--header-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--header-border);
+    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .nav-container {
@@ -112,6 +182,29 @@ header {
     color: var(--primary);
 }
 
+/* Botão de alternância de tema */
+.theme-toggle-btn {
+    background: var(--badge-bg);
+    border: 1px solid var(--badge-border);
+    color: var(--text-main);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.25s ease;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--primary-gradient);
+    color: var(--accent-btn-text);
+    border-color: transparent;
+    transform: translateY(-1px);
+}
+
 /* Container Ampliado para suportar 5 cards por linha em telas grandes */
 .container {
     max-width: 1560px;
@@ -142,7 +235,7 @@ header {
     max-width: 1100px;
     margin: 0 auto;
     line-height: 1.8;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 /* Games Section */
@@ -161,7 +254,7 @@ header {
     gap: 12px;
 }
 
-/* Ajustado para 5 colunas em computadores (mínimo de 210px por card) */
+/* Ajustado para 5 colunas em computadores */
 .games-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -189,17 +282,21 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    height: 2px;
+    height: 3px;
     background: var(--primary-gradient);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
+[data-theme="light"] .game-card::before {
+    opacity: 0.85;
+}
+
 .game-card:hover {
     transform: translateY(-6px);
     background: var(--card-hover-bg);
-    border-color: rgba(56, 189, 248, 0.3);
-    box-shadow: 0 20px 40px -15px rgba(56, 189, 248, 0.15);
+    border-color: var(--card-hover-border);
+    box-shadow: var(--card-shadow);
 }
 
 .game-card:hover::before {
@@ -213,7 +310,7 @@ header {
     object-fit: cover;
     border-radius: 10px;
     margin-bottom: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--img-border);
 }
 
 .game-card h3 {
@@ -231,7 +328,7 @@ header {
     font-size: 0.84rem;
     margin-bottom: 12px;
     line-height: 1.5;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 /* Estatísticas e Comentários */
@@ -239,8 +336,8 @@ header {
     font-size: 0.8rem;
     color: var(--text-muted);
     margin-bottom: 12px;
-    background: rgba(3, 7, 18, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.04);
+    background: var(--stats-bg);
+    border: 1px solid var(--stats-border);
     padding: 8px;
     border-radius: 10px;
 }
@@ -274,15 +371,16 @@ header {
 }
 
 .comments-list li {
-    background: rgba(15, 23, 42, 0.8);
+    background: var(--comment-item-bg);
+    color: var(--text-main);
     padding: 4px 8px;
     border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--comment-item-border);
 }
 
 .toggle-comments-btn {
-    background: rgba(56, 189, 248, 0.1);
-    border: 1px solid rgba(56, 189, 248, 0.2);
+    background: var(--badge-bg);
+    border: 1px solid var(--badge-border);
     color: var(--primary);
     width: 18px;
     height: 18px;
@@ -299,7 +397,7 @@ header {
 
 .toggle-comments-btn:hover {
     background: var(--primary-gradient);
-    color: #030712;
+    color: var(--accent-btn-text);
     border-color: transparent;
 }
 
@@ -312,7 +410,7 @@ header {
     flex: 1;
     padding: 5px 6px;
     font-size: 0.74rem;
-    background: rgba(3, 7, 18, 0.8);
+    background: var(--input-bg);
     border: 1px solid var(--card-border);
     color: var(--text-main);
     border-radius: 6px;
@@ -326,9 +424,9 @@ header {
 .comment-btn {
     padding: 5px 8px;
     font-size: 0.74rem;
-    background: rgba(56, 189, 248, 0.15);
+    background: var(--badge-bg);
     color: var(--primary);
-    border: 1px solid rgba(56, 189, 248, 0.3);
+    border: 1px solid var(--badge-border);
     border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
@@ -337,7 +435,7 @@ header {
 
 .comment-btn:hover {
     background: var(--primary-gradient);
-    color: #030712;
+    color: var(--accent-btn-text);
     border-color: transparent;
 }
 
@@ -361,21 +459,21 @@ header {
     width: 100%;
     text-align: center;
     padding: 8px 12px;
-    background: rgba(56, 189, 248, 0.08);
+    background: var(--play-btn-bg);
     color: var(--primary);
     text-decoration: none;
     border-radius: 10px;
     font-weight: 600;
     font-size: 0.82rem;
-    border: 1px solid rgba(56, 189, 248, 0.2);
+    border: 1px solid var(--play-btn-border);
     transition: all 0.3s ease;
 }
 
 .play-btn:hover {
     background: var(--primary-gradient);
-    color: #030712;
+    color: var(--accent-btn-text);
     border-color: transparent;
-    box-shadow: 0 8px 20px -5px rgba(56, 189, 248, 0.4);
+    box-shadow: var(--play-btn-shadow);
 }
 
 .support-btn {
@@ -386,8 +484,8 @@ header {
     width: 100%;
     text-align: center;
     padding: 8px 12px;
-    background: #419bf0;
-    color: black;
+    background: var(--support-btn-bg);
+    color: var(--support-btn-text);
     text-decoration: none;
     border-radius: 10px;
     font-weight: 700;
@@ -395,13 +493,13 @@ header {
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(248, 113, 113, 0.3);
+    box-shadow: var(--support-btn-shadow);
 }
 
 .support-btn:hover {
-    background: #087cbe;
+    background: var(--support-btn-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(5, 72, 218, 0.5);
+    box-shadow: var(--support-btn-hover-shadow);
 }
 
 /* Modal do QR Code e Diálogos */
@@ -410,7 +508,7 @@ header {
     inset: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(3, 7, 18, 0.85);
+    background: var(--modal-overlay-bg);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     display: flex;
@@ -430,15 +528,15 @@ header {
 }
 
 .modal-content {
-    background: rgba(15, 23, 42, 0.98);
-    border: 1px solid rgba(56, 189, 248, 0.3);
+    background: var(--modal-bg);
+    border: 1px solid var(--modal-border);
     padding: 36px 28px;
     border-radius: 20px;
     text-align: center;
     width: 100%;
     max-width: 420px;
     margin: auto;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    box-shadow: var(--modal-shadow);
     transform: scale(0.95);
     transition: transform 0.3s ease;
     box-sizing: border-box;
@@ -462,7 +560,7 @@ header {
     width: 220px;
     height: 220px;
     border-radius: 12px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--card-border);
     margin-bottom: 16px;
     background: #ffffff;
     padding: 12px;
@@ -522,7 +620,7 @@ header {
     display: inline-block;
     padding: 10px 24px;
     background: var(--primary-gradient);
-    color: #030712;
+    color: var(--accent-btn-text);
     border: none;
     border-radius: 10px;
     font-weight: 700;
@@ -557,8 +655,8 @@ header {
 }
 
 .store-card:hover {
-    border-color: rgba(56, 189, 248, 0.3);
-    box-shadow: 0 20px 40px -15px rgba(56, 189, 248, 0.15);
+    border-color: var(--card-hover-border);
+    box-shadow: var(--card-shadow);
     background: var(--card-hover-bg);
 }
 
@@ -573,33 +671,33 @@ header {
     color: var(--text-muted);
     font-size: 0.95rem;
     line-height: 1.6;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .store-btn {
     display: inline-block;
     padding: 14px 28px;
     background: var(--primary-gradient);
-    color: #030712;
+    color: var(--accent-btn-text);
     text-decoration: none;
     border-radius: 50px;
     font-weight: 700;
     font-size: 0.9rem;
     white-space: nowrap;
-    box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.3);
+    box-shadow: var(--play-btn-shadow);
     transition: all 0.3s ease;
     border: none;
 }
 
 .store-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 30px -5px rgba(56, 189, 248, 0.5);
+    opacity: 0.95;
 }
 
 /* Contact Section / Rodapé */
 .contact-section {
     margin-top: 100px;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--footer-border);
     padding-top: 60px;
 }
 
@@ -623,8 +721,9 @@ header {
 }
 
 .contact-card:hover {
-    border-color: rgba(56, 189, 248, 0.3);
+    border-color: var(--card-hover-border);
     background: var(--card-hover-bg);
+    box-shadow: var(--card-shadow);
     transform: translateY(-3px);
 }
 
@@ -677,8 +776,8 @@ header {
 }
 
 .portal-views-badge {
-    background: rgba(56, 189, 248, 0.1);
-    border: 1px solid rgba(56, 189, 248, 0.25);
+    background: var(--badge-bg);
+    border: 1px solid var(--badge-border);
     color: var(--text-main);
     padding: 6px 14px;
     border-radius: 999px;
@@ -719,9 +818,9 @@ header {
     text-align: center;
     color: var(--text-muted);
     font-size: 0.85rem;
-    font-weight: 300;
+    font-weight: 400;
     padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    border-top: 1px solid var(--footer-sub-border);
 }
 
 @media (max-width: 1400px) {
@@ -759,10 +858,10 @@ header {
     }
 
     .nav-links {
-        gap: 16px;
+        gap: 14px;
         width: 100%;
         justify-content: left;
-        align-items: left;
+        align-items: center;
         flex-wrap: wrap; 
         padding-bottom: 4px;
         margin: 0 auto;
@@ -826,6 +925,11 @@ header {
             <li><a href="#jogos">Jogos</a></li>            
             <li><a href="#loja">Lojas</a></li>
             <li><a href="#contato">Contato</a></li>
+            <li>
+                <button type="button" class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Alternar tema">
+                    ☀️ Claro
+                </button>
+            </li>
         </ul>
     </div>
 </header>
@@ -1436,12 +1540,43 @@ header {
     </div>
 </div>
 
-<!-- Script Integrado com Cloudflare Workers -->
+<!-- Script Integrado com Cloudflare Workers e Alternância de Tema -->
 <script>
 const API_BASE_URL = "https://stats-api.webgratis.workers.dev";
 const PORTAL_ID = "portal";
 
+// Aplica o tema salvo imediatamente (padrão: dark)
+const savedTheme = localStorage.getItem("portfolio_theme") || "dark";
+if (savedTheme === "light") {
+    document.documentElement.setAttribute("data-theme", "light");
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
+    const themeToggleBtn = document.getElementById("theme-toggle-btn");
+
+    function updateThemeButton(theme) {
+        if (!themeToggleBtn) return;
+        themeToggleBtn.textContent = theme === "light" ? "🌙 Escuro" : "☀️ Claro";
+    }
+
+    updateThemeButton(savedTheme);
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener("click", () => {
+            const isLight = document.documentElement.getAttribute("data-theme") === "light";
+            const nextTheme = isLight ? "dark" : "light";
+
+            if (nextTheme === "light") {
+                document.documentElement.setAttribute("data-theme", "light");
+            } else {
+                document.documentElement.removeAttribute("data-theme");
+            }
+
+            localStorage.setItem("portfolio_theme", nextTheme);
+            updateThemeButton(nextTheme);
+        });
+    }
+
     const gameCards = document.querySelectorAll(".game-card");
     const modal = document.getElementById("qr-modal");
     const closeModalBtn = document.getElementById("close-modal");
