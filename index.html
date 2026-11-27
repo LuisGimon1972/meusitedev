@@ -1533,8 +1533,12 @@ header {
         <img id="modal-qr-img" src="qr-code-pix.png" alt="QR Code Pix">
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">Escaneie o QR Code com seu aplicativo de pagamento para contribuir.</p>
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px;">Ou, se preferir, copie e cole a chave Pix:</p>
-        <p style="font-size: 0.95rem; font-weight: 700; color: var(--primary); margin-bottom: 16px;">49999244765</p>
-        <button class="close-modal-btn" id="close-modal">Fechar</button>
+        <p id="pix-key-value" style="font-size: 0.95rem; font-weight: 700; color: var(--primary); margin-bottom: 12px;">49999244765</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 4px;">
+            <button type="button" class="close-modal-btn" id="copy-pix-btn">📋 Copiar chave Pix</button>
+            <button type="button" class="close-modal-btn" id="close-modal">Fechar</button>
+        </div>
+        <span id="pix-copy-feedback" style="font-size: 0.8rem; color: var(--primary); font-weight: 600; margin-top: 10px; min-height: 18px;"></span>
     </div>
 </div>
 
@@ -1572,6 +1576,44 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
+    const copyPixBtn = document.getElementById("copy-pix-btn");
+    const pixKeyEl = document.getElementById("pix-key-value");
+    const pixFeedbackEl = document.getElementById("pix-copy-feedback");
+
+    if (copyPixBtn && pixKeyEl) {
+        copyPixBtn.addEventListener("click", async () => {
+            const pixKey = pixKeyEl.textContent.trim();
+            let copied = false;
+
+            if (navigator.clipboard && window.isSecureContext) {
+                try {
+                    await navigator.clipboard.writeText(pixKey);
+                    copied = true;
+                } catch (_) {
+                    copied = false;
+                }
+            }
+
+            if (!copied) {
+                const tempInput = document.createElement("input");
+                tempInput.value = pixKey;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                copied = document.execCommand("copy");
+                document.body.removeChild(tempInput);
+            }
+
+            if (pixFeedbackEl) {
+                pixFeedbackEl.textContent = copied
+                    ? "Chave Pix copiada!"
+                    : "Não foi possível copiar automaticamente. Selecione e copie: 49999244765";
+                setTimeout(() => {
+                    pixFeedbackEl.textContent = "";
+                }, 2500);
+            }
+        });
+    }
+
     const gameCards = document.querySelectorAll(".game-card");
     const modal = document.getElementById("qr-modal");
     const closeModalBtn = document.getElementById("close-modal");
@@ -1600,11 +1642,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (closeModalBtn && modal) {
         closeModalBtn.addEventListener("click", () => {
             modal.classList.remove("active");
+            if (pixFeedbackEl) pixFeedbackEl.textContent = "";
         });
 
         modal.addEventListener("click", (e) => {
             if (e.target === modal) {
                 modal.classList.remove("active");
+                if (pixFeedbackEl) pixFeedbackEl.textContent = "";
             }
         });
     }
@@ -1612,7 +1656,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
             if (bioModal) bioModal.classList.remove("active");
-            if (modal) modal.classList.remove("active");
+            if (modal) {
+                modal.classList.remove("active");
+                if (pixFeedbackEl) pixFeedbackEl.textContent = "";
+            }
         }
     });
 
